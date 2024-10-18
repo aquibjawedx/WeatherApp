@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather - App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="https://www.linkedin.com/in/aquibxjawed/" target="_blank"><i class="ri-linkedin-box-fill"></i></a>
+    </nav>
+
+    <main>
+        <div class="header">
+
+            <div class="search-box">
+                <input type="text" placeholder="Enter your location" id="search-field">
+
+                <button id="search-btn"><i class="ri-search-line"></i></button>
+            </div>
+            
+        </div>
+
+
+        <div class="container">
+
+            <div class="condition">
+
+                <img src="" alt="" id="weather-image">
+                <div>
+                    <p class="temp" id="temperature"><sup></sup></p>
+                    <p class="temp" id="description"></p>   
+                </div>
+               
+            </div>
+
+            <div class="country"></div>
+
+        </div>
+
+        <div class="error-404">
+            <h1 >Enter correct location</h1>
+            <img src="./Images/error404.svg" alt="Error Image">
+        </div>
+
+
+        <div class="more-details">
+
+            <div class="humidity">
+                <p><i class="ri-water-percent-fill"></i> Humidity : <span id="humidity"></span></p>
+            </div>
+
+            <div class="wind">
+                <p><i class="ri-windy-fill"></i> Wind Speed : <span id="wind"></span></p>
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
