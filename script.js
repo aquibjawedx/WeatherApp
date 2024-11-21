@@ -19,38 +19,50 @@ async function checkWeather (cityName) {
     const api_key = "d7bcaaa887008cd394c3cad2cc704d93";
     const api_url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${api_key}`;
     
-    const response = await fetch(api_url);
-    let weather_data = await response.json();
+    try {
+        const response = await fetch(api_url);
+        let weather_data = await response.json();
+
+        if(weather_data.cod === '404') {
+            container.style.display = 'none';
+            moreDetails.style.display = 'none';
+            error_404.style.display = 'flex';
+            return;
+        }
+        else{
+            error_404.style.display = 'none';
+            container.style.display = 'flex';
+            moreDetails.style.display = 'flex';
+        }
+        temperature.innerHTML = `${Math.round((weather_data.main.temp - 273.15))} <span>°C</span>`;
+        country.innerHTML = weather_data.name;
     
-    if(weather_data.cod === '404') {
-        container.style.display = 'none';
-        moreDetails.style.display = 'none';
-        error_404.style.display = 'flex';
-        return;
-    }
-    else{
-        error_404.style.display = 'none';
-        container.style.display = 'flex';
-        moreDetails.style.display = 'flex';
-    }
-    temperature.innerHTML = `${Math.round((weather_data.main.temp - 273.15))} <span>°C</span>`;
-    country.innerHTML = weather_data.name;
+        humidity.innerHTML = `${weather_data.main.humidity} %`;
+        wind.innerHTML = `${weather_data.wind.speed} KM/h`;
+        description.innerHTML = `${weather_data.weather[0].description}`;
+    
+        switch(weather_data.weather[0].main) {
+            case ('Clouds') : weatherImage.src = "./Images/cloud.svg";
+            break;
+            case ('Clear') : weatherImage.src = "./Images/clear.svg";
+            break;
+            case ('Rain') : weatherImage.src = "./Images/rain.svg";
+            break;
+            case ('Snow') : weatherImage.src = "./Images/snow.svg";
+            break;
+            default : weatherImage.src = "./Images/clear.svg";             
+        }
 
-    humidity.innerHTML = `${weather_data.main.humidity} %`;
-    wind.innerHTML = `${weather_data.wind.speed} KM/h`;
-    description.innerHTML = `${weather_data.weather[0].description}`;
-
-    switch(weather_data.weather[0].main) {
-        case ('Clouds') : weatherImage.src = "./Images/cloud.svg";
-        break;
-        case ('Clear') : weatherImage.src = "./Images/clear.svg";
-        break;
-        case ('Rain') : weatherImage.src = "./Images/rain.svg";
-        break;
-        case ('Snow') : weatherImage.src = "./Images/snow.svg";
-        break;
-        default : weatherImage.src = "./Images/clear.svg";             
+    } catch (error) {
+        if(searchField.value == '') {
+            alert("Please enter the city name")
+            return;
+        }
+        else{
+            alert(`Server down! Please try after sometime.`)
+        }
     }
+ 
 }
 
 checkWeather("Delhi");
